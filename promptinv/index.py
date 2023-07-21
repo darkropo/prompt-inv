@@ -5,12 +5,8 @@ from dotenv import load_dotenv, find_dotenv
 _ = load_dotenv(find_dotenv())
 
 openai.api_key  = os.getenv('OPENAI_API_KEY')
+
 app = Flask(__name__)
-
-incomes = [
-    { 'description': 'salary', 'amount': 5000 }
-]
-
 
 @app.route('/')
 def index():
@@ -20,21 +16,22 @@ def index():
 def process_user_message():
     # Get the data from the request body
     data = request.get_json()
-
+    message = "<mess>"+data['message']+"</mess>"
+    prompt = f"""You will be provided with text delimited by "<mess>" and "</mess>". """
     # Assuming you have a function that processes user messages and generates a bot response
-    bot_response = get_prompt_response(data['message'])
+    bot_response = get_prompt_response(prompt,message)
 
     # Append the user's message to the chat conversation (optional)
-    incomes.append({
-        "user": "User",
-        "message": data['message']
-    })
+    #incomes.append({
+    #    "user": "User",
+    #    "message": data['message']
+    #})
 
     # Append the bot's response to the chat conversation (optional)
-    incomes.append({
-        "user": "Bot",
-        "message": bot_response
-    })
+    # incomes.append({
+    #     "user": "Bot",
+    #     "message": bot_response
+    # })
 
     # Return the bot response as a JSON object
     return jsonify({'bot_response': bot_response})
