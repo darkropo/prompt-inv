@@ -11,10 +11,27 @@ function sendMessage() {
     const userMessage = userMessageInput.value.trim();
 
     if (userMessage !== "") {
-        // Assuming "Bot" responds in the server (not implemented in this client-side example)
-        // Replace "Bot" with the actual name of the bot if needed
         appendMessage("User", userMessage);
         userMessageInput.value = "";
+
+        // Send the user's message to the API endpoint using AJAX
+        fetch('/botchat', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                user: 'User',
+                message: userMessage
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Handle the response from the server if needed
+            // For example, append the bot's response to the chat box
+            appendMessage("Bot", data.bot_response);
+        })
+        .catch(error => console.error('Error sending message:', error));
     }
 }
 
