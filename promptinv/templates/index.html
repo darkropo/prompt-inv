@@ -10,8 +10,9 @@
             <!-- Chat messages will be displayed here dynamically -->
         </div>
         <div class="user-input">
-            <input type="text" id="userMessage" placeholder="Type your message...">
+            <input type="text" id="userMessage" placeholder="Type your message..." onkeypress="handleKeyPress(event)">
             <button onclick="sendMessage()">Send</button>
+            <button onclick="clearChat()">Clear Chat</button>
         </div>
     </div>
 
