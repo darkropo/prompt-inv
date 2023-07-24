@@ -16,10 +16,15 @@ def index():
 def process_user_message():
     # Get the data from the request body
     data = request.get_json()
-    message = "<mess>"+data['message']+"</mess>"
-    prompt = f"""You will be provided with text delimited by "<mess>" and "</mess>". """
-    # Assuming you have a function that processes user messages and generates a bot response
-    bot_response = get_prompt_response(prompt,message)
+    message = data['message']
+    prompt = f"""Tell me which language this is ```{message}```.
+    Use this format: ```Language```"""
+    # Get the language from the prompt
+    language = get_prompt_language(prompt)
+
+    prompt_ask = f"""You will be provided with text delimited by "<mess>" and "</mess>". Here is the text {message}.
+    Make your response in {language}."""
+    bot_response = get_prompt_response(prompt_ask)
 
     # Append the user's message to the chat conversation (optional)
     #incomes.append({
@@ -37,6 +42,15 @@ def process_user_message():
     return jsonify({'bot_response': bot_response})
 
 def get_prompt_response(prompt, model="gpt-3.5-turbo"):
+    messages = [{"role": "user", "content": prompt}]
+    response = openai.ChatCompletion.create(
+        model=model,
+        messages=messages,
+        temperature=0.4, # this is the degree of randomness of the model's output
+    )
+    return response.choices[0].message["content"]
+
+def get_prompt_language(prompt, model="gpt-3.5-turbo"):
     messages = [{"role": "user", "content": prompt}]
     response = openai.ChatCompletion.create(
         model=model,
