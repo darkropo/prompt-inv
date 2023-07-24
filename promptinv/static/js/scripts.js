@@ -35,19 +35,31 @@ function sendMessage() {
     }
 }
 
+// Function to clear the chat box
+function clearChat() {
+    const chatBox = document.getElementById("chatBox");
+    chatBox.innerHTML = ""; // Clear all chat messages
+}
+// Function to handle sending a message when Enter key is pressed
+function handleKeyPress(event) {
+    if (event.key === 'Enter') {
+        sendMessage();
+    }
+}
+
 // Sample code to receive chat data from the server and populate the chat box
 // You can use this function if you're loading chat data dynamically from the server
-function loadChatDataFromServer() {
-    // Replace the URL with your server endpoint for getting chat data
-    fetch('/botchat')
-        .then(response => response.json())
-        .then(data => {
-            data.forEach(message => {
-                appendMessage(message.user, message.message);
-            });
-        })
-        .catch(error => console.error('Error loading chat data:', error));
-}
+// function loadChatDataFromServer() {
+//     // Replace the URL with your server endpoint for getting chat data
+//     fetch('/botchat')
+//         .then(response => response.json())
+//         .then(data => {
+//             data.forEach(message => {
+//                 appendMessage(message.user, message.message);
+//             });
+//         })
+//         .catch(error => console.error('Error loading chat data:', error));
+// }
 
 // Uncomment the line below if you want to load chat data from the server on page load
 // window.addEventListener('DOMContentLoaded', loadChatDataFromServer);
