@@ -1,3 +1,4 @@
-#!/bin/sh
-export FLASK_APP=./promptinv/index.py
-pipenv run flask --debug run -h 0.0.0.0
+#!/bin/bash
+source /home/darkropo/Develops/prompt-inv/venv/bin/activate
+export FLASK_APP=./promptinv/src/index.py
+pipenv run flask run -h 0.0.0.0

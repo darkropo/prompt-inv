@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Chat Form</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('get_css', filename='styles.css') }}">
 </head>
 <body>
     <div class="chat-container">
@@ -16,6 +16,6 @@
         </div>
     </div>
 
-    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+    <script src="{{ url_for('get_js', filename='scripts.js') }}"></script>
 </body>
 </html>
